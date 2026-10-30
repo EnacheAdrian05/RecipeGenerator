@@ -27,7 +27,6 @@ header nav {
 nav a {
     font-size: 1.2rem;
     margin-inline: 2.5rem;
-    text-decoration: none;
     transition: 0.2s ease-in-out;
 }
 
