@@ -15,9 +15,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/recipe-gen/allergies")
 public class GetAllAllergiesController {
-    private final AllergyService allergyService;
+    private final GetAllAllergiesService allergyService;
 
-    public GetAllAllergiesController(AllergyService allergyService) {
+    public GetAllAllergiesController
+            (GetAllAllergiesService allergyService) {
         this.allergyService = allergyService;
     }
 
@@ -34,7 +35,8 @@ public class GetAllAllergiesController {
     public ResponseEntity<@NonNull Map<String, Object>>
             getAllAllergies() {
         Map<String, Object> res = new LinkedHashMap<>();
-        List<Allergy> allergies = this.allergyService.getAllAllergies();
+        List<Allergy> allergies = this.allergyService
+                .getAllAllergies();
         res.put("allergies", allergies);
         res.put("timestamp", Instant.now().toString());
 

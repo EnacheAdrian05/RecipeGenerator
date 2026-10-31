@@ -15,6 +15,7 @@ import java.util.UUID;
  * An allergy has its name and is identified
  * by a unique ID.
  */
+@SuppressWarnings("unused")
 @Entity
 @Table(name = "allergies")
 public class Allergy {
@@ -31,7 +32,7 @@ public class Allergy {
 
     protected Allergy() {}
 
-    public Allergy(final String name) {
+    public Allergy(String name) {
         this.id = Generators.timeBasedEpochGenerator().generate();
         if (name == null || name.isBlank() || name.length() > 128) {
             throw new IllegalArgumentException("Invalid name!");

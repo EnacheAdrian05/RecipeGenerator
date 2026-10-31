@@ -6,7 +6,7 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 @Component
-public class AllergyAdapter implements IAllergy{
+public class AllergyAdapter implements IAllergy {
     private final JpaAllergyRepo allergyRepo;
 
     public AllergyAdapter(JpaAllergyRepo allergyRepo) {
