@@ -1,0 +1,30 @@
+.content form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-block: 2rem;
+}
+
+form label {
+    text-align: left;
+}
+
+form input {
+    display: block;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.submit {
+    padding: 0.5rem;
+    width: fit-content;
+    margin-inline: auto;
+    margin-top: 1rem;
+    font-size: 1.2rem;
+}
+
+.auth-link {
+    display: flex;
+    justify-content: center;
+}
