@@ -1,15 +1,13 @@
 package com.recipegen.backend.GetAllAllergies;
 
-import org.jspecify.annotations.NonNull;
-import org.springframework.http.ResponseEntity;
+import com.recipegen.backend.Login.PingApiResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 @SuppressWarnings("unused")
 @RestController
@@ -22,24 +20,21 @@ public class GetAllAllergiesController {
         this.allergyService = allergyService;
     }
 
+    @Operation(summary = "Ping",
+            description = "Check if function is running.")
+    @ApiResponse(responseCode = "200", description = "Server is running")
     @GetMapping
-    public ResponseEntity<@NonNull Map<String, String>> ping() {
-        Map<String, String> res = new LinkedHashMap<>();
-        res.put("response", "pong");
-        res.put("timestamp", Instant.now().toString());
-
-        return ResponseEntity.ok(res);
+    public PingApiResponse ping() {
+        return new PingApiResponse("pong", Instant.now());
     }
 
+    @Operation(summary = "Get all allergies",
+            description = "Get all allergies by name in the database.")
+    @ApiResponse(responseCode = "200", description = "The list with all allergies by name")
     @GetMapping("/")
-    public ResponseEntity<@NonNull Map<String, Object>>
+    public GetAllAllergiesApiResponse
             getAllAllergies() {
-        Map<String, Object> res = new LinkedHashMap<>();
-        List<Allergy> allergies = this.allergyService
-                .getAllAllergies();
-        res.put("allergies", allergies);
-        res.put("timestamp", Instant.now().toString());
-
-        return ResponseEntity.ok(res);
+        return new GetAllAllergiesApiResponse(
+                this.allergyService.getAllAllergies(), Instant.now());
     }
 }

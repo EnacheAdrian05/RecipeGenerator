@@ -25,13 +25,14 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
+                                "/swagger-ui.html/**",
                                 "/v3/api-docs/**",
                                 "/swagger-resources/**",
                                 "/webjars/**",
                                 "/error"
                         ).permitAll()
 
-                        .requestMatchers("/api/v1/recipe-gen/login/**").permitAll()
+                        .requestMatchers("/api/v1/recipe-gen/**").permitAll()
 
                         .anyRequest().authenticated()
                 )

@@ -11,6 +11,14 @@
         </label>
         <input type="password" id="password" name="password" 
                 required minlength="8" maxlength="24"/>
+        <label for="allergies">Allergies (optional)</label>
+        <input type="search" id="allergies" list="allergies-list" name="allergies"
+            placeholder="Start typing..." autocomplete="off"/>
+        <datalist id="allergies-list">
+            @for (allergy of allergies; track allergy.name) {
+                <option [value]="allergy.name"></option>
+            }
+        </datalist>
         <button class="submit">Register</button>
     </form>
     <a routerLink="/login" class="auth-link">Already have an account?</a>
