@@ -13,12 +13,23 @@
                 required minlength="8" maxlength="24"/>
         <label for="allergies">Allergies (optional)</label>
         <input type="search" id="allergies" list="allergies-list" name="allergies"
-            placeholder="Start typing..." autocomplete="off"/>
+            placeholder="Start typing..." autocomplete="off"
+            [value] = "allergyInput"
+            (input)="onAllergyInput($event)"
+            (change)="onAllergyInput($event)"
+            (blur)="allergyInput = ''"/>
         <datalist id="allergies-list">
             @for (allergy of allergies; track allergy.name) {
                 <option [value]="allergy.name"></option>
             }
         </datalist>
+        <div id="chips">
+            @for (allergy of selectedAllergies; track allergy.name) {
+                <div class="chip" (click) = "removeAllergy(allergy)">
+                    × {{allergy.name}}
+                </div>
+            }
+        </div>
         <button class="submit">Register</button>
     </form>
     <a routerLink="/login" class="auth-link">Already have an account?</a>

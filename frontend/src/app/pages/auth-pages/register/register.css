@@ -1,0 +1,27 @@
+#chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background-color: cadetblue;
+  color: white;
+  padding: 0.8rem;
+  border-radius: 999px;
+  font-size: 1.2rem;
+  line-height: 1;
+  transition: 0.2s ease-in-out;
+}
+
+.chip:hover {
+    scale: 1.1;
+    background-color: rgb(125, 209, 212);
+    cursor: pointer;
+    color: whitesmoke;
+}
