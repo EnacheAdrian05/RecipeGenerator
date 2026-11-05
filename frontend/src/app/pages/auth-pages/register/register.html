@@ -1,16 +1,25 @@
 <div class="content">
     <h2>Make an account</h2>
-    <form>
+    <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
         <label for="name">
             Username (max. 64 characters)
         </label>
-        <input type="text" id="name" name="name" 
+        <input type="text" ngModel id="name" name="name" 
                 required maxlength="64" placeholder="ex. John Smith"/>
+        <label for="email">
+            E-mail address 
+        </label>
+        <input type="email" ngModel id="email" name="email"
+                required placeholder="ex. john.smith@email.com"/>
         <label for="password">
             Password (8-24 characters)
         </label>
-        <input type="password" id="password" name="password" 
-                required minlength="8" maxlength="24"/>
+        <input type="password" id="password" name="password"
+            required ngModel
+            minlength="8" maxlength="24"
+            pattern="(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*\(\)_+\-=\[\]\{\};':&quot;\\\|,.<>\/?]).{8,24}"
+            title="8-24 characters with at least one uppercase letter,
+             one number, and one special character" />
         <label for="allergies">Allergies (optional)</label>
         <input type="search" id="allergies" list="allergies-list" name="allergies"
             placeholder="Start typing..." autocomplete="off"
@@ -30,7 +39,9 @@
                 </div>
             }
         </div>
-        <button class="submit">Register</button>
+        <button class="submit" type="submit">
+            Register
+        </button>
     </form>
     <a routerLink="/login" class="auth-link">Already have an account?</a>
 </div>

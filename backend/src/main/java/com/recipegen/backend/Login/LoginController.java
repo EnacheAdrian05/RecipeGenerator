@@ -1,5 +1,6 @@
 package com.recipegen.backend.Login;
 
+import com.recipegen.backend.GetAllAllergies.PingResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -27,20 +28,21 @@ public class LoginController {
             description = "Check if server is running.")
     @ApiResponse(responseCode = "200", description = "Server is running")
     @GetMapping
-    public PingApiResponse ping() {
-        return new PingApiResponse("pong", Instant.now());
+    public PingResponse ping() {
+        return new PingResponse("pong", Instant.now());
     }
 
     @Operation(summary = "Login",
             description = "Authenticate a user. Returns 401 on failure.")
     @ApiResponse(responseCode = "200", description = "Login successful",
             content = @Content(
-            mediaType = "application/json",
-            examples = @ExampleObject(
-                    value = "{\"logged\": true, " +
-                            "\"timestamp\": \"2026-11-01T12:33:03Z\"}"
+                mediaType = "application/json",
+                examples = @ExampleObject(
+                        value = "{\"logged\": true, " +
+                                "\"timestamp\": \"2026-11-01T12:33:03Z\"}"
+                )
             )
-    ))
+    )
     @ApiResponse(responseCode = "401", description = "Invalid credentials",
             content = @Content(
                     mediaType = "application/json",
@@ -49,7 +51,8 @@ public class LoginController {
                                     "\"error\": \"Invalid username or password\", " +
                                     " \"timestamp\": \"2026-11-01T12:33:03Z\"}"
                     )
-            ))
+            )
+    )
     @PostMapping("/")
     public ResponseEntity<@NonNull Map<String, Object>> login
             (@RequestBody LoginUser user) {

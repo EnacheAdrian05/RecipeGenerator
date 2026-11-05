@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -20,8 +22,8 @@ import java.util.UUID;
 @Table(name = "allergies")
 public class Allergy {
     @Id
-    @NotNull
-    @Column(name = "id",
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "id", columnDefinition = "CHAR(36)",
             unique = true, nullable = false)
     private UUID id;
 

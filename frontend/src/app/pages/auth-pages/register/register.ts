@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
+import { FormsModule, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 export interface Allergy {
   name: string;
@@ -13,15 +15,23 @@ export interface AllergyResponse {
   timestamp: string;
 }
 
+export interface RegisterResponse {
+  registered: boolean;
+  error?: string;
+  timestamp: string;
+}
+
 @Component({
   selector: 'app-register',
-  imports: [RouterLink],
+  imports: [FormsModule, RouterLink],
   templateUrl: './register.html',
   styleUrls: ['../auth.css', './register.css'],
 })
 export class Register implements OnInit {
-  private readonly url = `${environment.apiUrl}/allergies/`;
+  private readonly getAllergiesUrl = `${environment.apiUrl}/allergies/`;
+  private readonly registerUrl = `${environment.apiUrl}/register/`;
   private http = inject(HttpClient);
+  private router = inject(Router);
 
   allergies: Allergy[] = [];
   selectedAllergies: Allergy[] = [];
@@ -35,7 +45,7 @@ export class Register implements OnInit {
 
   getAllAllergies(): Observable<Allergy[]> {
     return this.http
-      .get<AllergyResponse>(this.url)
+      .get<AllergyResponse>(this.getAllergiesUrl)
       .pipe(map(res => res.allergies));
   }
 
@@ -59,5 +69,36 @@ export class Register implements OnInit {
 
   removeAllergy(a: Allergy): void {
     this.selectedAllergies = this.selectedAllergies.filter(a1 => a1.name !== a.name)
+  }
+
+  register(form: NgForm) {
+    if (form.invalid) {
+        form.control.markAllAsTouched();
+        return;
+    }
+
+    const body = {
+      name: form.value.name,
+      email: form.value.email,
+      password: form.value.password,
+      allergies: this.selectedAllergies.map(a => a.name),
+    };
+
+    this.http.post<RegisterResponse>(this.registerUrl, body)
+      .pipe(
+        catchError((err: HttpErrorResponse) =>
+          of(err.error as RegisterResponse)
+        )
+      )
+      .subscribe((res) => {
+        if (res.registered) {
+          alert("Registration was successful!");
+          this.router.navigate(["/login"]);
+        }
+
+        else {
+          alert(res.error);
+        }
+      });
   }
 }

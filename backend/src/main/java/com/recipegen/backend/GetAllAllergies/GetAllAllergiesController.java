@@ -1,6 +1,5 @@
 package com.recipegen.backend.GetAllAllergies;
 
-import com.recipegen.backend.Login.PingApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +23,8 @@ public class GetAllAllergiesController {
             description = "Check if function is running.")
     @ApiResponse(responseCode = "200", description = "Server is running")
     @GetMapping
-    public PingApiResponse ping() {
-        return new PingApiResponse("pong", Instant.now());
+    public PingResponse ping() {
+        return new PingResponse("pong", Instant.now());
     }
 
     @Operation(summary = "Get all allergies",

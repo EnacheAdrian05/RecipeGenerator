@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -20,8 +22,8 @@ import java.util.UUID;
 @Table(name = "users")
 public class LoginUser {
     @Id
-    @NotNull
-    @Column(name = "id",
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "id", columnDefinition = "CHAR(36)",
             unique = true, nullable = false)
     private UUID id;
 
@@ -40,27 +42,28 @@ public class LoginUser {
     protected LoginUser() {}
 
     public LoginUser(String name, String password) {
-        if (name == null || name.isBlank()
-            || name.length() > 64) {
-            throw new IllegalArgumentException("Invalid name!");
-        }
-
-        if (password == null || password.isBlank()
-            || password.length() < 8 ||
-                password.length() > 24) {
-            throw new IllegalArgumentException("Invalid password!");
-        }
-
+        this.setName(name.trim());
+        this.setPassword(password);
         this.id = Generators.timeBasedEpochGenerator().generate();
-        this.name = name.trim();
         this.password = password;
     }
 
     public void setName(String name) {
+        if (name == null || name.isBlank()
+                || name.length() > 64) {
+            throw new IllegalArgumentException("Invalid name!");
+        }
+
         this.name = name;
     }
 
     public void setPassword(String password) {
+        if (password == null || password.isBlank()
+                || password.length() < 8 ||
+                password.length() > 24) {
+            throw new IllegalArgumentException("Invalid password!");
+        }
+
         this.password = password;
     }
 

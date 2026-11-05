@@ -41,7 +41,9 @@ export class Login {
           if (res.logged) {
             alert(`Welcome, ${body.name}!`);
             this.router.navigate(["/"]);
-          } else {
+          } 
+          
+          else {
             alert(res.error);
           }
         });
