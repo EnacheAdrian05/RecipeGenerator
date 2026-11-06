@@ -40,7 +40,7 @@ export class Login {
         .subscribe((res) => {
           if (res.logged) {
             alert(`Welcome, ${body.name}!`);
-            this.router.navigate(["/"]);
+            this.router.navigate([`/`], {queryParams: {user: body.name}});
           } 
           
           else {
