@@ -1,5 +1,6 @@
 package com.recipegen.backend.Login;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -8,15 +9,19 @@ import java.util.Optional;
 @Component
 public class LoginUserAdapter implements ILoginUser {
     private final JpaLoginUserRepo loginUserRepo;
+    private final PasswordEncoder encoder;
 
-    public LoginUserAdapter(JpaLoginUserRepo loginUserRepo) {
+    public LoginUserAdapter(JpaLoginUserRepo loginUserRepo,
+                            PasswordEncoder encoder) {
         this.loginUserRepo = loginUserRepo;
+        this.encoder = encoder;
     }
 
     @Override
     public boolean login(String name, String password) {
         Optional<LoginUser> user = this.loginUserRepo
-                .findByNameAndPassword(name, password);
-        return user.isPresent();
+                .findByName(name);
+        return user.isPresent() &&
+                this.encoder.matches(password, user.get().getPasswordHash());
     }
 }

@@ -5,7 +5,6 @@ import com.recipegen.backend.GetAllAllergies.Allergy;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -23,10 +22,6 @@ import java.util.UUID;
 @SuppressWarnings("unused")
 @Table(name = "users")
 public class RegisterUser {
-    private final static String PASSWORD_REGEX =
-            "^(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{8,24}$";
-    private final static java.util.regex.Pattern PATTERN =
-            java.util.regex.Pattern.compile(PASSWORD_REGEX);
     @Id
     @JdbcTypeCode(SqlTypes.CHAR)
     @Column(name = "id", columnDefinition = "CHAR(36)",
@@ -46,14 +41,10 @@ public class RegisterUser {
     private String email;
 
     @NotNull
-    @Pattern(regexp = PASSWORD_REGEX,
-             message = "Password must be 8-24 characters long," +
-                     "must contain at least a number, a capital letter " +
-                     "and a special character")
-    @Column(name = "password",
+    @Column(name = "password_hash",
             nullable = false)
-    @Size(min = 8, max = 24)
-    private String password;
+    @Size(max = 255)
+    private String passwordHash;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -66,9 +57,9 @@ public class RegisterUser {
     protected RegisterUser() {}
 
     public RegisterUser(String name, String email,
-                        String password, Set<Allergy> allergies) {
+                        String passwordHash, Set<Allergy> allergies) {
         this.setName(name.trim());
-        this.setPassword(password);
+        this.setPasswordHash(passwordHash);
         this.id = Generators.timeBasedEpochGenerator().generate();
         this.email = email;
         this.allergies = allergies;
@@ -87,12 +78,13 @@ public class RegisterUser {
         this.email = email;
     }
 
-    public void setPassword(String password) {
-        if (!PATTERN.matcher(password).matches()) {
-            throw new IllegalArgumentException("Invalid password!");
+    public void setPasswordHash(String passwordHash) {
+        if (passwordHash.length() < 60 ||
+                passwordHash.length() > 255) {
+            throw new IllegalArgumentException("Invalid hash!");
         }
 
-        this.password = password;
+        this.passwordHash = passwordHash;
     }
 
     public void setAllergies(Set<Allergy> allergies) {
@@ -108,7 +100,7 @@ public class RegisterUser {
     }
 
     public String getPassword() {
-        return this.password;
+        return this.passwordHash;
     }
 
     public Set<Allergy> getAllergies() {

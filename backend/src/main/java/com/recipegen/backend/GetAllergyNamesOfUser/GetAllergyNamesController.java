@@ -13,7 +13,7 @@ import java.util.Set;
 
 @SuppressWarnings("unused")
 @RestController
-@RequestMapping("/api/v1/recipe-gen/allergies/user")
+@RequestMapping("/api/v1/recipe-gen/allergies/user/")
 public class GetAllergyNamesController {
     private final UserNameService userNameService;
 

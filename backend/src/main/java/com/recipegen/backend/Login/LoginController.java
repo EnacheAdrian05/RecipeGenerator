@@ -55,10 +55,10 @@ public class LoginController {
     )
     @PostMapping("/")
     public ResponseEntity<@NonNull Map<String, Object>> login
-            (@RequestBody LoginUser user) {
+            (@RequestBody LoginRequest user) {
         Map<String, Object> res = new LinkedHashMap<>();
         boolean logged = this.loginService.login
-                (user.getName(), user.getPassword());
+                (user.name(), user.password());
         if(!logged) {
             res.put("logged", false);
             res.put("error", "Invalid username or password");

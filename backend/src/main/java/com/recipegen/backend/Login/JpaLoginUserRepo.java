@@ -10,6 +10,6 @@ import java.util.UUID;
 @Repository
 public interface JpaLoginUserRepo extends JpaRepository
         <@NonNull LoginUser, @NonNull UUID> {
-    Optional<LoginUser> findByNameAndPassword
-            (String name, String password);
+    Optional<LoginUser> findByName
+            (String name);
 }

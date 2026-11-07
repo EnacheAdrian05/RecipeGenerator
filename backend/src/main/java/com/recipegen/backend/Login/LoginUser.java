@@ -33,19 +33,19 @@ public class LoginUser {
     @Size(max = 64)
     private String name;
 
-    @Column(name = "password",
+    @Column(name = "password_hash",
             nullable = false)
     @NotNull
-    @Size(min = 8, max = 24)
-    private String password;
+    @Size(min = 60, max = 255)
+    private String passwordHash;
 
     protected LoginUser() {}
 
-    public LoginUser(String name, String password) {
+    public LoginUser(String name, String passwordHash) {
         this.setName(name.trim());
-        this.setPassword(password);
+        this.setPasswordHash(passwordHash);
         this.id = Generators.timeBasedEpochGenerator().generate();
-        this.password = password;
+        this.passwordHash = passwordHash;
     }
 
     public void setName(String name) {
@@ -57,22 +57,20 @@ public class LoginUser {
         this.name = name;
     }
 
-    public void setPassword(String password) {
-        if (password == null || password.isBlank()
-                || password.length() < 8 ||
-                password.length() > 24) {
-            throw new IllegalArgumentException("Invalid password!");
+    public void setPasswordHash(String passwordHash) {
+        if (passwordHash.length() < 60 ||
+                passwordHash.length() > 255) {
+            throw new IllegalArgumentException("Invalid hash!");
         }
-
-        this.password = password;
+        this.passwordHash = passwordHash;
     }
 
     public String getName() {
         return this.name;
     }
 
-    public String getPassword() {
-        return this.password;
+    public String getPasswordHash() {
+        return this.passwordHash;
     }
 
     @Override

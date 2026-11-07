@@ -3,6 +3,7 @@ package com.recipegen.backend.Register;
 import com.recipegen.backend.GetAllAllergies.Allergy;
 import com.recipegen.backend.GetAllAllergies.JpaAllergyRepo;
 import jakarta.transaction.Transactional;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -14,12 +15,15 @@ import java.util.Set;
 public class RegisterUserAdapter implements IRegisterUser {
     private final JpaRegisterUserRepo userRepo;
     private final JpaAllergyRepo allergyRepo;
+    private final PasswordEncoder encoder;
 
     public RegisterUserAdapter
             (JpaRegisterUserRepo userRepo,
-             JpaAllergyRepo allergyRepo) {
+             JpaAllergyRepo allergyRepo,
+             PasswordEncoder encoder) {
         this.userRepo = userRepo;
         this.allergyRepo = allergyRepo;
+        this.encoder = encoder;
     }
 
 
@@ -31,8 +35,8 @@ public class RegisterUserAdapter implements IRegisterUser {
             return false;
         }
 
+        String passwordHash = this.encoder.encode(password);
         Set<Allergy> allergies = new HashSet<>();
-
         for (String aName : allergyNames) {
             Optional<Allergy> allergy = this.allergyRepo.getAllergyByName(aName);
 
@@ -44,7 +48,7 @@ public class RegisterUserAdapter implements IRegisterUser {
         }
 
         RegisterUser user = new RegisterUser(
-                name, email, password, allergies);
+                name, email, passwordHash, allergies);
         this.userRepo.save(user);
         return true;
     }
