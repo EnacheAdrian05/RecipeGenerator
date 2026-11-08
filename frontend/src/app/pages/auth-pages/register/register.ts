@@ -28,8 +28,8 @@ export interface RegisterResponse {
   styleUrls: ['../auth.css', './register.css'],
 })
 export class Register implements OnInit {
-  private readonly getAllergiesUrl = `${environment.apiUrl}/allergies/`;
-  private readonly registerUrl = `${environment.apiUrl}/register/`;
+  private readonly getAllergiesUrl = `${environment.apiUrl}/allergies`;
+  private readonly registerUrl = `${environment.apiUrl}/register`;
   private http = inject(HttpClient);
   private router = inject(Router);
 

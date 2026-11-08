@@ -19,7 +19,7 @@ export interface LoginResponse {
   styleUrl: '../auth.css',
 })
 export class Login {
-  private readonly url = `${environment.apiUrl}/login/`;
+  private readonly url = `${environment.apiUrl}/login`;
   private http = inject(HttpClient);
   private router = inject(Router);
 
