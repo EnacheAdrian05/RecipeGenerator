@@ -1,6 +1,5 @@
 package com.recipegen.backend.Register;
 
-import com.recipegen.backend.GetAllAllergies.PingResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -24,15 +23,7 @@ public class RegisterController {
         this.registerService = registerService;
     }
 
-    @GetMapping
-    @Operation(summary = "Ping",
-            description = "Check if server is running.")
-    @ApiResponse(responseCode = "200", description = "Server is running")
-    public PingResponse ping() {
-        return new PingResponse("pong", Instant.now());
-    }
-
-    @PostMapping("/")
+    @PostMapping
     @Operation(summary = "Register",
             description = "Add a user and their allergies. Returns 409 on failure.")
     @ApiResponse(responseCode = "200", description = "Registration successful",

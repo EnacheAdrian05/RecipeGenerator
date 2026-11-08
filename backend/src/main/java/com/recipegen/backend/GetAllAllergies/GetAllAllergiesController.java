@@ -19,18 +19,10 @@ public class GetAllAllergiesController {
         this.allergyService = allergyService;
     }
 
-    @Operation(summary = "Ping",
-            description = "Check if function is running.")
-    @ApiResponse(responseCode = "200", description = "Server is running")
-    @GetMapping
-    public PingResponse ping() {
-        return new PingResponse("pong", Instant.now());
-    }
-
     @Operation(summary = "Get all allergies",
             description = "Get all allergies by name in the database.")
     @ApiResponse(responseCode = "200", description = "The list with all allergies by name")
-    @GetMapping("/")
+    @GetMapping
     public GetAllAllergiesApiResponse
             getAllAllergies() {
         return new GetAllAllergiesApiResponse(

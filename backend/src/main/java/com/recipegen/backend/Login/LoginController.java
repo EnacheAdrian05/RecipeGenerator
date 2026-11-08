@@ -1,6 +1,5 @@
 package com.recipegen.backend.Login;
 
-import com.recipegen.backend.GetAllAllergies.PingResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -24,14 +23,6 @@ public class LoginController {
         this.loginService = loginService;
     }
 
-    @Operation(summary = "Ping",
-            description = "Check if server is running.")
-    @ApiResponse(responseCode = "200", description = "Server is running")
-    @GetMapping
-    public PingResponse ping() {
-        return new PingResponse("pong", Instant.now());
-    }
-
     @Operation(summary = "Login",
             description = "Authenticate a user. Returns 401 on failure.")
     @ApiResponse(responseCode = "200", description = "Login successful",
@@ -53,7 +44,7 @@ public class LoginController {
                     )
             )
     )
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<@NonNull Map<String, Object>> login
             (@RequestBody LoginRequest user) {
         Map<String, Object> res = new LinkedHashMap<>();
