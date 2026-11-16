@@ -50,7 +50,9 @@ public class RegisterController {
         Map<String, Object> res = new LinkedHashMap<>();
         boolean registered = this.registerService.register(
                 user.name(), user.email(),
-                user.password(), user.allergies());
+                user.password(),
+                user.allergies(),
+                user.restrictions());
 
         if (!registered) {
             res.put("registered", false);

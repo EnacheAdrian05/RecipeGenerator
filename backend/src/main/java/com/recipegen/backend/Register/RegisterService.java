@@ -1,18 +1,22 @@
 package com.recipegen.backend.Register;
 
+import com.recipegen.backend.domain.interfaces.IUser;
 import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
 public class RegisterService {
-    public IRegisterUser registerPort;
+    public IUser userPort;
 
-    public RegisterService(IRegisterUser registerPort) {
-        this.registerPort = registerPort;
+    public RegisterService(IUser userPort) {
+        this.userPort = userPort;
     }
 
     public boolean register(String name, String email,
-                            String password, Set<String> allergies) {
-        return registerPort.register(name, email, password, allergies);
+                            String password,
+                            Set<String> allergies,
+                            Set<String> restrictions) {
+        return this.userPort.register
+                (name, email, password, allergies, restrictions);
     }
 }

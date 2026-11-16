@@ -1,5 +1,7 @@
 package com.recipegen.backend.GetAllAllergies;
 
+import com.recipegen.backend.domain.entities.Allergy;
+import com.recipegen.backend.domain.interfaces.IAllergy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

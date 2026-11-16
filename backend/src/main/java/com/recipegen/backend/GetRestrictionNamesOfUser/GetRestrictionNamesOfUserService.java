@@ -1,20 +1,21 @@
 package com.recipegen.backend.GetRestrictionNamesOfUser;
 
+import com.recipegen.backend.domain.interfaces.IUser;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
 public class GetRestrictionNamesOfUserService {
-    public IUserNameRestrictions userNameRestrictionsPort;
+    public IUser userPort;
 
     public  GetRestrictionNamesOfUserService
-            (IUserNameRestrictions userNameRestrictionsPort) {
-        this.userNameRestrictionsPort = userNameRestrictionsPort;
+            (IUser userPort) {
+        this.userPort = userPort;
     }
 
     public Set<String> getRestrictionNamesOfUser(String name) {
-        return this.userNameRestrictionsPort
-                .getRestrictionNamesOfUser(name);
+        return this.userPort
+                .getRestrictions(name);
     }
 }

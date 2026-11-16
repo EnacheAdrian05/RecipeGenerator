@@ -4,5 +4,7 @@ import java.util.Set;
 
 public record RegisterRequest
         (String name, String email,
-         String password, Set<String> allergies) {
+         String password,
+         Set<String> allergies,
+         Set<String> restrictions) {
 }

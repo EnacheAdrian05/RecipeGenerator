@@ -1,16 +1,17 @@
 package com.recipegen.backend.Login;
 
+import com.recipegen.backend.domain.interfaces.IUser;
 import org.springframework.stereotype.Service;
 
 @Service
 public class LoginService {
-    private final ILoginUser loginUserPort;
+    private final IUser userPort;
 
-    public LoginService(ILoginUser loginUserPort) {
-        this.loginUserPort = loginUserPort;
+    public LoginService(IUser userPort) {
+        this.userPort = userPort;
     }
 
     boolean login(String name, String password) {
-        return this.loginUserPort.login(name, password);
+        return this.userPort.login(name, password);
     }
 }

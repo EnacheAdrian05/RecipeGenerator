@@ -1,5 +1,6 @@
 package com.recipegen.backend.GetRestrictionsOfCategory;
 
+import com.recipegen.backend.domain.entities.DietaryRestriction;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
