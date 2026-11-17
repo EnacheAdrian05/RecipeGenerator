@@ -105,6 +105,14 @@ public class User {
 
     public void setRestrictions
             (Set<DietaryRestriction> restrictions) {
+        int religiousRestrictionsCount = Math.toIntExact(restrictions.stream()
+                .filter(r -> Objects.equals(r.getCategory(), "Religious"))
+                .count());
+        if (religiousRestrictionsCount > 1) {
+            throw new IllegalArgumentException
+                    ("Cannot have multiple religious dietary restrictions!");
+        }
+
         this.restrictions = restrictions;
     }
 
