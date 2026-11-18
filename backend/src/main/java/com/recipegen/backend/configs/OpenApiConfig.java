@@ -17,8 +17,9 @@ public class OpenApiConfig {
                         .title("Recipe Generator API")
                         .version("1.0.0")
                         .description("Describes the functionalities of a recipe generator app, " +
-                                "including authentification, allergy selection and the recipe " +
-                                "generation itself.")
+                                "including authentification, allergies and " +
+                                "dietary restrictions selection and the recipe " +
+                                "generation proper.")
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")));
     }
 }

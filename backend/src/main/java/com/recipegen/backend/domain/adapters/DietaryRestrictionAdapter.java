@@ -5,7 +5,7 @@ import com.recipegen.backend.domain.interfaces.IDietaryRestriction;
 import com.recipegen.backend.domain.repositories.JpaDietaryRestrictionRepo;
 import org.springframework.stereotype.Component;
 
-import java.util.Set;
+import java.util.List;
 
 @SuppressWarnings("unused")
 @Component
@@ -18,8 +18,8 @@ public class DietaryRestrictionAdapter implements IDietaryRestriction {
     }
 
     @Override
-    public Set<DietaryRestriction>
-    getRestrictionsPerCategory(String category) {
-        return this.restrictionRepo.getNamesByCategory(category);
+    public List<DietaryRestriction>
+    getAllDietaryRestrictions() {
+        return this.restrictionRepo.findAll();
     }
 }

@@ -5,12 +5,7 @@
             Username (max. 64 characters)
         </label>
         <input type="text" ngModel id="name" name="name" 
-                required maxlength="64" placeholder="ex. John Smith"/>
-        <label for="email">
-            E-mail address 
-        </label>
-        <input type="email" ngModel id="email" name="email"
-                required placeholder="ex. john.smith@email.com"/>
+                required maxlength="64" placeholder="ex. John Smith" autocomplete="off"/>
         <label for="password">
             Password (8-24 characters)
         </label>
@@ -32,10 +27,32 @@
                 <option [value]="allergy.name"></option>
             }
         </datalist>
-        <div id="chips">
+        <div class="chips">
             @for (allergy of selectedAllergies; track allergy.name) {
-                <div class="chip" (click) = "removeAllergy(allergy)">
+                <div class="chip" id="allergy-chip" (click) = "removeAllergy(allergy)">
                     × {{allergy.name}}
+                </div>
+            }
+        </div>
+        <label for="restrictions">Dietary restrictions (optional)</label>
+        <select name="restrictions" id="restrictions">
+            <option value="" disabled selected hidden>
+                Select from category
+            </option>
+            @for (restrictionsGroup of restrictionsGroups; 
+                track restrictionsGroup.category) {
+                <optgroup [label]="restrictionsGroup.category"></optgroup>
+                @for (restriction of restrictionsGroup.restrictions; 
+                    track restriction) {
+                        <option [value]="restriction">{{restriction}}</option>
+                }
+            }
+        </select>
+        <div class="chips">
+            @for (restriction of selectedRestrictions; track restriction.name) {
+                <div class="chip" id="restriction-chip" 
+                (click) = "removeRestriction(restriction)">
+                    × {{restriction.name}}
                 </div>
             }
         </div>

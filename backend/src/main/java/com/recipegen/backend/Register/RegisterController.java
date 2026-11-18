@@ -25,7 +25,8 @@ public class RegisterController {
 
     @PostMapping
     @Operation(summary = "Register",
-            description = "Add a user and their allergies. Returns 409 on failure.")
+            description = "Add a user, their allergies and dietary restrictions." +
+                    "\nReturns 409 on failure.")
     @ApiResponse(responseCode = "200", description = "Registration successful",
             content = @Content(
                     mediaType = "application/json",
@@ -49,7 +50,7 @@ public class RegisterController {
             (@RequestBody RegisterRequest user) {
         Map<String, Object> res = new LinkedHashMap<>();
         boolean registered = this.registerService.register(
-                user.name(), user.email(),
+                user.name(),
                 user.password(),
                 user.allergies(),
                 user.restrictions());

@@ -12,11 +12,11 @@ public class RegisterService {
         this.userPort = userPort;
     }
 
-    public boolean register(String name, String email,
+    public boolean register(String name,
                             String password,
                             Set<String> allergies,
                             Set<String> restrictions) {
         return this.userPort.register
-                (name, email, password, allergies, restrictions);
+                (name, password, allergies, restrictions);
     }
 }

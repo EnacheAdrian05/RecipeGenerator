@@ -12,8 +12,6 @@ import java.util.UUID;
 @Repository
 public interface JpaDietaryRestrictionRepo extends JpaRepository
     <@NonNull DietaryRestriction, @NonNull UUID> {
-    Set<DietaryRestriction> getNamesByCategory
-            (String category);
     Optional<DietaryRestriction> getRestrictionByName
             (String name);
 }

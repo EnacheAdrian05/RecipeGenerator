@@ -2,9 +2,8 @@ package com.recipegen.backend.domain.interfaces;
 
 import com.recipegen.backend.domain.entities.DietaryRestriction;
 
-import java.util.Set;
+import java.util.List;
 
 public interface IDietaryRestriction {
-    Set<DietaryRestriction>
-    getRestrictionsPerCategory(String category);
+    List<DietaryRestriction> getAllDietaryRestrictions();
 }

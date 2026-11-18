@@ -1,4 +1,4 @@
-#chips {
+.chips {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
@@ -10,8 +10,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  background-color: cadetblue;
-  color: white;
+  color: rgb(255, 255, 255);
   padding: 0.8rem;
   border-radius: 999px;
   font-size: 1.2rem;
@@ -19,9 +18,23 @@
   transition: 0.2s ease-in-out;
 }
 
+#allergy-chip {
+  background-color: rgb(95, 158, 160);
+} 
+
+#restriction-chip {
+  background-color: rgb(221, 160, 221);
+}
+
 .chip:hover {
     scale: 1.1;
     background-color: rgb(125, 209, 212);
     cursor: pointer;
-    color: whitesmoke;
+    color: rgb(245, 245, 245);
+}
+
+select optgroup {
+  margin: 0;
+  background-color: rgb(176, 176, 176);
+  font-style: normal;
 }

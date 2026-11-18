@@ -1,6 +1,5 @@
 package com.recipegen.backend.GenerateRecipe;
 
-import com.recipegen.backend.GetRestrictionNamesOfUser.GenerateRecipeRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.web.bind.annotation.GetMapping;

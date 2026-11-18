@@ -2,7 +2,6 @@ package com.recipegen.backend.domain.entities;
 
 import com.fasterxml.uuid.Generators;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -36,12 +35,6 @@ public class User {
     private String name;
 
     @NotNull
-    @Email
-    @Column(name = "email",
-            nullable = false)
-    private String email;
-
-    @NotNull
     @Column(name = "password_hash",
             nullable = false)
     @Size(max = 255)
@@ -65,14 +58,13 @@ public class User {
 
     protected User() {}
 
-    public User(String name, String email,
+    public User(String name,
                 String passwordHash,
                 Set<Allergy> allergies,
                 Set<DietaryRestriction> restrictions) {
         this.setName(name.trim());
         this.setPasswordHash(passwordHash);
         this.id = Generators.timeBasedEpochGenerator().generate();
-        this.email = email;
         this.allergies = allergies;
         this.restrictions = restrictions;
     }
@@ -84,10 +76,6 @@ public class User {
         }
 
         this.name = name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public void setPasswordHash(String passwordHash) {
@@ -118,10 +106,6 @@ public class User {
 
     public String getName() {
         return this.name;
-    }
-
-    public String getEmail() {
-        return this.email;
     }
 
     public String getPasswordHash() {

@@ -36,7 +36,7 @@ public class UserAdapter implements IUser {
 
     @Override
     @Transactional
-    public boolean register(String name, String email,
+    public boolean register(String name,
                             String password,
                             Set<String> allergies_,
                             Set<String> restrictions_) {
@@ -68,7 +68,7 @@ public class UserAdapter implements IUser {
             restrictions.add(restriction.get());
         }
 
-        User user = new User(name, email, passwordHash,
+        User user = new User(name, passwordHash,
                 allergies, restrictions);
         this.userRepo.save(user);
         return true;
