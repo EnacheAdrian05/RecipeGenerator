@@ -16,7 +16,7 @@ public class GetAllDietaryRestrictionsService {
     }
 
     public List<DietaryRestriction>
-        getRestrictionsOfCategory() {
+        getAllDietaryRestrictions() {
         return this.restrictionsPort
                 .getAllDietaryRestrictions();
     }

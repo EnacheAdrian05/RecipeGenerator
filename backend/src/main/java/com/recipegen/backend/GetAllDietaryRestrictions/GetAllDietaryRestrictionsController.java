@@ -31,7 +31,7 @@ public class GetAllDietaryRestrictionsController {
     public GetAllDietaryRestrictionsApiResponse getRestrictions() {
         List<DietaryRestriction> restrictions = this
                 .restrictionsService
-                .getRestrictionsOfCategory();
+                .getAllDietaryRestrictions();
 
         return new GetAllDietaryRestrictionsApiResponse
                 (restrictions, Instant.now());
