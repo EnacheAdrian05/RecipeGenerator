@@ -35,7 +35,10 @@
             }
         </div>
         <label for="restrictions">Dietary restrictions (optional)</label>
-        <select name="restrictions" id="restrictions">
+        <select name="restrictions" id="restrictions"
+            [value]="restrictionInput"
+            (change)="onRestrictionInput($event)"
+            (blur)="restrictionInput = ''">
             <option value="" disabled selected hidden>
                 Select from category
             </option>
@@ -43,15 +46,17 @@
                 track restrictionsGroup.category) {
                 <optgroup [label]="restrictionsGroup.category"></optgroup>
                 @for (restriction of restrictionsGroup.restrictions; 
-                    track restriction) {
-                        <option [value]="restriction">{{restriction}}</option>
+                    track restriction.name) {
+                    <option [value]="restriction.name">
+                        {{restriction.name}}
+                    </option>
                 }
             }
         </select>
         <div class="chips">
             @for (restriction of selectedRestrictions; track restriction.name) {
                 <div class="chip" id="restriction-chip" 
-                (click) = "removeRestriction(restriction)">
+                (click)="removeRestriction(restriction)">
                     × {{restriction.name}}
                 </div>
             }

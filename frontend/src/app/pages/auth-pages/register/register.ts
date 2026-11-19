@@ -33,7 +33,7 @@ export interface RegisterResponse {
 
 export interface CategoryRestrictions {
   category: string;
-  restrictions: string[];
+  restrictions: DietaryRestriction[];
 }
 
 @Component({
@@ -65,8 +65,7 @@ export class Register implements OnInit {
       restrictions => {
         const categories: Set<string> = new Set(restrictions.map(r => r.category));
         for (let c of categories) {
-          const categoryRestrictions = restrictions.filter(r => r.category === c)
-            .map(r => r.name);
+          const categoryRestrictions = restrictions.filter(r => r.category === c);
           this.restrictionsGroups.push({
             category: c,
             restrictions: categoryRestrictions
@@ -106,7 +105,29 @@ export class Register implements OnInit {
     this.allergyInput = '';
   }
 
-  onRestrictionsInput(e: Event): void {
+  onRestrictionInput(e: Event): void {
+    const value = (e.target as HTMLInputElement).value.trim();
+    this.restrictionInput = value;
+
+    const match = this.restrictionsGroups
+      .flatMap(g => g.restrictions)
+      .find(r => r.name.toUpperCase() === value.toUpperCase());
+
+    if (!match) {
+      return;
+    }
+
+    if (match.category === "Religious" && 
+      this.selectedRestrictions.some(r => r.category === "Religious")) {
+      alert("You cannot have 2 religious dietary restrictions!");
+      return;
+    }
+
+    if (!this.selectedRestrictions.some(r => r.name === match.name)) {
+      this.selectedRestrictions.push(match);
+    }
+    
+    this.restrictionInput = '';
   }
 
   removeAllergy(a: Allergy): void {
