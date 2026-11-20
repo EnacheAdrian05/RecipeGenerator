@@ -1,0 +1,12 @@
+.content {
+    margin-top: 3rem;
+    width: 60vw;
+}
+
+.content article section {
+    margin-bottom: 3rem;
+}
+
+.content article section p {
+    margin: 0;
+}
